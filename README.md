@@ -85,7 +85,7 @@ hx ./run-container.sh
 ```
 ```bash
 # Once inside the container, build Helix
-./build-helix.sh
+./build-helix-armv6l.sh
 ```
 ```bash
 # Once Helix is built, you can exit the container and copy the binary to your device.
