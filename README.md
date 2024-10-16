@@ -87,6 +87,22 @@ hx ./run-container.sh
 # Once inside the container, build Helix
 ./build-helix.sh
 ```
+```bash
+# Once Helix is built, you can exit the container and copy the binary to your device.
+exit
+
+# Copy the binary to your device
+scp ./target/armv6-unknown-linux-gnueabi/release/hx pi@<your-pi-ip>:/home/<your-username>/hx
+
+# SSH into your device
+ssh <your-username>@<your-pi-ip>
+
+# Change permissions and ownership of the binary
+chmod 755 -v./hx && chown root:root ./hx
+
+# Move the binary to /usr/local/bin
+sudo mv -v ./hx /usr/local/bin/hx
+```
 
 # Contributing
 
