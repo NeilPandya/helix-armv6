@@ -62,13 +62,14 @@ export HELIX_DEFAULT_RUNTIME="/usr/local/lib/helix/runtime"
 export RUSTFLAGS="\
     -C target-cpu=arm1176jzf-s \
     -C linker=arm-linux-gnueabi-gcc \
+    -C target-feature=-crt-static \
     -C link-arg=-Wl,--as-needed \
     -C link-arg=-Wl,--gc-sections \
     -C link-arg=-L/usr/lib/arm-linux-gnueabi \
     -C link-arg=-L/usr/arm-linux-gnueabi/lib \
     --cfg tokio_unstable \
     -C link-arg=-Wl,--dynamic-linker=/lib/ld-linux-armhf.so.3"
-#   -C target-feature=+vfp2,+soft-float \
+
 # Print environment variables and prompt user to continue
 echo "Environment variables set:"
 printenv
@@ -88,7 +89,7 @@ echo "Cleaning runtime directory..."
 rm -v runtime/grammars/*.so
 
 # Install the required Rust target
-rustup target add arm-unknown-linux-gnueabi && \
+rustup target add arm-unknown-linux-gnueabihf && \
 echo "Installed Target(s): " && \
 rustup target list --installed
 

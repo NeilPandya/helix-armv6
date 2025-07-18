@@ -90,29 +90,6 @@ fn ensure_git_is_available() -> Result<()> {
     Ok(())
 }
 
-// Get the appropriate compiler flags based on the target CPU.
-fn get_compiler_flags(target_cpu: &str) -> Vec<&str> {
-    match target_cpu {
-        "arm1176jzf-s" => vec![
-            "-mcpu=arm1176jzf-s",
-            "-I/usr/arm-linux-gnueabihf/include/",
-            "-O3",
-            "-fdata-sections",
-            "-ffunction-sections",
-            "-fno-exceptions",
-            "-fPIC",
-        ],
-        // Add more target CPUs and their respective flags here.
-        _ => vec![
-            "-O3",
-            "-fdata-sections",
-            "-ffunction-sections",
-            "-fno-exceptions",
-            "-fPIC",
-        ],
-    }
-}
-
 pub fn fetch_grammars() -> Result<()> {
     ensure_git_is_available()?;
 
@@ -296,12 +273,12 @@ fn fetch_grammar(grammar: GrammarConfiguration) -> Result<FetchStatus> {
         }
 
         // ensure the remote matches the configured remote
-        if get_remote_url(&grammar_dir).map_or(true, |s| s != remote) {
+        if get_remote_url(&grammar_dir).as_ref() != Some(&remote) {
             set_remote(&grammar_dir, &remote)?;
         }
 
         // ensure the revision matches the configured revision
-        if get_revision(&grammar_dir).map_or(true, |s| s != revision) {
+        if get_revision(&grammar_dir).as_ref() != Some(&revision) {
             // Fetch the exact revision from the remote.
             // Supported by server-side git since v2.5.0 (July 2015),
             // enabled by default on major git hosts.
@@ -452,9 +429,6 @@ fn build_tree_sitter_library(
         return Ok(BuildStatus::AlreadyBuilt);
     }
 
-    let target_cpu = std::env::var("TARGET_CPU").unwrap_or_else(|_| "generic".to_string());
-    let compiler_flags = get_compiler_flags(&target_cpu);
-
     let mut config = cc::Build::new();
     config
         .cpp(true)
@@ -462,11 +436,6 @@ fn build_tree_sitter_library(
         .cargo_metadata(false)
         .host(BUILD_TARGET)
         .target(target.unwrap_or(BUILD_TARGET));
-
-    for flag in compiler_flags {
-        config.flag(flag);
-    }
-
     let compiler = config.get_compiler();
     let mut command = Command::new(compiler.path());
     command.current_dir(src_path);
