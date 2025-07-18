@@ -40,7 +40,7 @@
 | dart | ✓ | ✓ | ✓ | `dart` |
 | dbml | ✓ |  |  |  |
 | debian | ✓ |  |  |  |
-| devicetree | ✓ |  |  |  |
+| devicetree | ✓ |  |  | `dts-lsp` |
 | dhall | ✓ | ✓ |  | `dhall-lsp-server` |
 | diff | ✓ |  |  |  |
 | djot | ✓ |  |  |  |
@@ -78,6 +78,7 @@
 | git-commit | ✓ | ✓ |  |  |
 | git-config | ✓ | ✓ |  |  |
 | git-ignore | ✓ |  |  |  |
+| git-notes | ✓ |  |  |  |
 | git-rebase | ✓ |  |  |  |
 | gjs | ✓ | ✓ | ✓ | `typescript-language-server`, `vscode-eslint-language-server`, `ember-language-server` |
 | gleam | ✓ | ✓ |  | `gleam` |
@@ -103,7 +104,8 @@
 | hocon | ✓ | ✓ | ✓ |  |
 | hoon | ✓ |  |  |  |
 | hosts | ✓ |  |  |  |
-| html | ✓ |  |  | `vscode-html-language-server`, `superhtml` |
+| html | ✓ | ✓ |  | `vscode-html-language-server`, `superhtml` |
+| htmldjango | ✓ |  |  | `djlsp`, `vscode-html-language-server`, `superhtml` |
 | hurl | ✓ | ✓ | ✓ |  |
 | hyprlang | ✓ |  | ✓ | `hyprls` |
 | idris |  |  |  | `idris2-lsp` |
@@ -115,10 +117,14 @@
 | java | ✓ | ✓ | ✓ | `jdtls` |
 | javascript | ✓ | ✓ | ✓ | `typescript-language-server` |
 | jinja | ✓ |  |  |  |
+| jjconfig | ✓ | ✓ | ✓ | `taplo`, `tombi` |
 | jjdescription | ✓ |  |  |  |
+| jjrevset | ✓ |  |  |  |
+| jjtemplate | ✓ |  |  |  |
 | jq | ✓ | ✓ |  | `jq-lsp` |
 | jsdoc | ✓ |  |  |  |
 | json | ✓ | ✓ | ✓ | `vscode-json-language-server` |
+| json-ld | ✓ | ✓ | ✓ | `vscode-json-language-server` |
 | json5 | ✓ |  |  |  |
 | jsonc | ✓ |  | ✓ | `vscode-json-language-server` |
 | jsonnet | ✓ |  |  | `jsonnet-language-server` |
@@ -184,12 +190,13 @@
 | powershell | ✓ |  |  |  |
 | prisma | ✓ | ✓ |  | `prisma-language-server` |
 | prolog | ✓ |  | ✓ | `swipl` |
+| properties | ✓ | ✓ |  |  |
 | protobuf | ✓ | ✓ | ✓ | `buf`, `pb`, `protols` |
 | prql | ✓ |  |  |  |
 | pug | ✓ |  |  |  |
 | purescript | ✓ | ✓ |  | `purescript-language-server` |
 | python | ✓ | ✓ | ✓ | `ty`, `ruff`, `jedi-language-server`, `pylsp` |
-| qml | ✓ |  | ✓ | `qmlls` |
+| qml | ✓ | ✓ | ✓ | `qmlls` |
 | quarto | ✓ |  | ✓ |  |
 | quint | ✓ |  |  | `quint-language-server` |
 | r | ✓ |  |  | `R` |
@@ -204,6 +211,7 @@
 | ruby | ✓ | ✓ | ✓ | `ruby-lsp`, `solargraph` |
 | rust | ✓ | ✓ | ✓ | `rust-analyzer` |
 | rust-format-args | ✓ |  |  |  |
+| rust-format-args-macro | ✓ | ✓ | ✓ |  |
 | sage | ✓ | ✓ |  |  |
 | scala | ✓ | ✓ | ✓ | `metals` |
 | scheme | ✓ |  | ✓ |  |
@@ -226,6 +234,7 @@
 | svelte | ✓ |  | ✓ | `svelteserver` |
 | sway | ✓ | ✓ | ✓ | `forc` |
 | swift | ✓ | ✓ |  | `sourcekit-lsp` |
+| systemd | ✓ |  |  | `systemd-lsp` |
 | t32 | ✓ |  |  |  |
 | tablegen | ✓ | ✓ | ✓ |  |
 | tact | ✓ | ✓ | ✓ |  |
@@ -265,7 +274,7 @@
 | wit | ✓ |  | ✓ |  |
 | wren | ✓ | ✓ | ✓ |  |
 | xit | ✓ |  |  |  |
-| xml | ✓ |  | ✓ |  |
+| xml | ✓ | ✓ | ✓ |  |
 | xtc | ✓ |  |  |  |
 | yaml | ✓ | ✓ | ✓ | `yaml-language-server`, `ansible-language-server` |
 | yara | ✓ |  |  | `yls` |

@@ -565,6 +565,8 @@ impl MappableCommand {
         goto_prev_comment, "Goto previous comment",
         goto_next_test, "Goto next test",
         goto_prev_test, "Goto previous test",
+        goto_next_xml_element, "Goto next (X)HTML element",
+        goto_prev_xml_element, "Goto previous (X)HTML element",
         goto_next_entry, "Goto next pairing",
         goto_prev_entry, "Goto previous pairing",
         goto_next_paragraph, "Goto next paragraph",
@@ -3726,11 +3728,13 @@ fn open(cx: &mut Context, open: Open, comment_continuation: CommentContinuation)
             .map(|token| token.len() + 1) // `+ 1` for the extra space added
             .unwrap_or_default();
         for i in 0..count {
-            // pos                    -> beginning of reference line,
-            // + (i * (1+indent_len + comment_len)) -> beginning of i'th line from pos (possibly including comment token)
+            // pos                     -> beginning of reference line,
+            // + (i * (line_ending_len + indent_len + comment_len)) -> beginning of i'th line from pos (possibly including comment token)
             // + indent_len + comment_len ->        -> indent for i'th line
             ranges.push(Range::point(
-                pos + (i * (1 + indent_len + comment_len)) + indent_len + comment_len,
+                pos + (i * (doc.line_ending.len_chars() + indent_len + comment_len))
+                    + indent_len
+                    + comment_len,
             ));
         }
 
@@ -5880,6 +5884,14 @@ fn goto_prev_test(cx: &mut Context) {
     goto_ts_object_impl(cx, "test", Direction::Backward)
 }
 
+fn goto_next_xml_element(cx: &mut Context) {
+    goto_ts_object_impl(cx, "xml-element", Direction::Forward)
+}
+
+fn goto_prev_xml_element(cx: &mut Context) {
+    goto_ts_object_impl(cx, "xml-element", Direction::Backward)
+}
+
 fn goto_next_entry(cx: &mut Context) {
     goto_ts_object_impl(cx, "entry", Direction::Forward)
 }
@@ -5947,6 +5959,7 @@ fn select_textobject(cx: &mut Context, objtype: textobject::TextObject) {
                         'c' => textobject_treesitter("comment", range),
                         'T' => textobject_treesitter("test", range),
                         'e' => textobject_treesitter("entry", range),
+                        'x' => textobject_treesitter("xml-element", range),
                         'p' => textobject::textobject_paragraph(text, range, objtype, count),
                         'm' => textobject::textobject_pair_surround_closest(
                             doc.syntax(),
@@ -5991,6 +6004,7 @@ fn select_textobject(cx: &mut Context, objtype: textobject::TextObject) {
         ("e", "Data structure entry (tree-sitter)"),
         ("m", "Closest surrounding pair (tree-sitter)"),
         ("g", "Change"),
+        ("x", "X(HTML) element (tree-sitter)"),
         (" ", "... or any character acting as a pair"),
     ];
 
